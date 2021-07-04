@@ -1,6 +1,6 @@
 /* Spacefox 2D shooting game
 
-Written by Thodoris "darkheart" Kouleris
+Written by Thodoris Kouleris
 
 
 This program is free software; you can redistribute it and/or
