@@ -10,7 +10,7 @@ of the License, or (at your option) any later version.
 
 
  */
-#include<stdio.h>
+#include<cstdio>
 #include<SDL/SDL.h>
 #include<SDL/SDL_image.h>
 #include<SDL/SDL_mixer.h>
@@ -25,16 +25,16 @@ SDL_Event event;
 SDL_Event event_f1;
 
 //sprites
-SDL_Surface *screen = NULL;
-SDL_Surface *bg = NULL;
-SDL_Surface *sf = NULL;
-SDL_Surface *laser = NULL;
-SDL_Surface *enemy = NULL;
-SDL_Surface *enemy_bullet = NULL;
-SDL_Surface *title_screen = NULL;
-SDL_Surface *try_again = NULL;
-SDL_Surface *go = NULL;
-SDL_Surface *grtf = NULL;
+SDL_Surface *screen = nullptr;
+SDL_Surface *bg = nullptr;
+SDL_Surface *sf = nullptr;
+SDL_Surface *laser = nullptr;
+SDL_Surface *enemy = nullptr;
+SDL_Surface *enemy_bullet = nullptr;
+SDL_Surface *title_screen = nullptr;
+SDL_Surface *try_again = nullptr;
+SDL_Surface *go = nullptr;
+SDL_Surface *grtf = nullptr;
 
 
 
@@ -48,7 +48,7 @@ SDL_Rect offsetEBL;
 SDL_Rect offsetTRY;
 
 //sounds
-Mix_Chunk *sfx_laser = NULL;
+Mix_Chunk *sfx_laser = nullptr;
 
 bool quit;
 bool visible[5]; 
@@ -59,14 +59,15 @@ int i = 0;
 int score = 0;
 int lives = 2;
 
-void delay(void){
+void delay(){
 	for(int i = 0; i<100000;i++){
-				for(int j = 0; j<8899;j++){
-				}
-			}
+	    for(int j = 0; j<8899;j++){
+
+	    }
+	}
 }
 //init_media() function initializes Audio and Video, loads sprites, backgrounds and sound
-void init_media(void){
+void init_media(){
 	if(SDL_Init(SDL_INIT_EVERYTHING)==-1){
 		printf("SDL Cannot Initialize\n");
 	}else{
@@ -74,12 +75,12 @@ void init_media(void){
 	}
 	Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096);
 	sfx_laser = Mix_LoadWAV( "./sfx/sfx_laser.wav" );
-	if( sfx_laser == NULL ){
+	if( sfx_laser == nullptr ){
 		printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
 	}
 
 	screen = SDL_SetVideoMode(WIDTH,HEIGHT,BPP,SDL_DOUBLEBUF | SDL_HWSURFACE);
-	SDL_WM_SetCaption("SpaceFox",NULL);
+	SDL_WM_SetCaption("SpaceFox",nullptr);
 	bg = IMG_Load("./images/background_1.png");
 	sf = IMG_Load("./images/blackknight.png");
 	laser = IMG_Load("./images/laser.png");
@@ -96,7 +97,7 @@ void init_media(void){
 }
 
 
-void titlescreen(void){
+void titlescreen(){
 	//Screen offset
 	offsetSCR.x = 0;
 	offsetSCR.y = 0;
@@ -110,7 +111,7 @@ void titlescreen(void){
 
 	SDL_BlitSurface( title_screen, &offsetTMP, screen, &offsetSCR );
 	SDL_Flip(screen);
-	while(f1 == false){
+	while(!f1){
 		while(SDL_PollEvent(&event_f1)){
 			if(event_f1.type==SDL_KEYDOWN){
 				switch(event_f1.key.keysym.sym){
@@ -121,7 +122,7 @@ void titlescreen(void){
 	}
 }
 
-void set_positions(void){
+void set_positions(){
 	//Background offset
 		offsetBG.x = 0;
 		offsetBG.y = 768;
@@ -204,7 +205,7 @@ int main(int argc,char *argv[]){
 
 		SDL_Flip(screen);
 		quit = false;
-		while(quit == false){
+		while(!quit){
 			offsetLSR.x = offsetSF.x + 55;
 			SDL_BlitSurface(bg, &offsetEBL,screen,&offsetEBL);
 			offsetEBL.y = offsetEBL.y + 1;
@@ -268,8 +269,8 @@ int main(int argc,char *argv[]){
 			}
 			//Apply image to screen
 			SDL_BlitSurface( bg, &offsetTMP, screen, &offsetSF);
-			SDL_BlitSurface( enemy_bullet,NULL,screen,&offsetEBL);
-			SDL_BlitSurface( sf, NULL, screen,  &offsetSF );
+			SDL_BlitSurface( enemy_bullet,nullptr,screen,&offsetEBL);
+			SDL_BlitSurface( sf, nullptr, screen,  &offsetSF );
 			/*if(offsetEBL.y = offsetSF.y){
 				printf("SF = %d",offsetSF.y);
 				printf("\nEBL = %d",offsetEBL.y);
@@ -320,7 +321,7 @@ int main(int argc,char *argv[]){
 	delay();
 		
 	//clearing the memory
-	if(quit == true){
+	if(quit){
 		Mix_FreeChunk(sfx_laser);
 		SDL_FreeSurface(bg);
 		SDL_FreeSurface(sf);
